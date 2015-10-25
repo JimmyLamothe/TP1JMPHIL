@@ -1,0 +1,8 @@
+public class Roi extends Piece
+{
+    public Roi(boolean est_blanc, int colonne, int ligne, Echiquier echiquier)
+    {
+	super(est_blanc, colonne, ligne, echiquier);
+    }
+
+}

@@ -23,25 +23,25 @@ public class Piece
     {
 	return this.est_blanc;
     }
-
     public boolean estNoir()
     {
 	return (!this.est_blanc);
     }
-
     public boolean estCapture()
     {
 	return this.est_capture;
     }
-
     public int getLigne()
     {
 	return this.ligne;
     }
-
     public int getColonne()
     {
 	return this.colonne;
+    }
+    public Echiquier getEchiquier()
+    {
+	return this.echiquier;
     }
     public void meSuisFaitCapture()
     {
@@ -53,16 +53,19 @@ public class Piece
 	if (this.est_capture == true)
 	    {
 		valide = false;
+		return valide;
 	    }
 	if (this.echiquier.caseValide(nouvelle_colonne, nouvelle_ligne) == false)
 	    {
 		valide = false;
+		return valide;
 	    }
 	// NOTE: Vérifier ce qui arrive avec le retour NULL!
 	if (this.echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne).estBlanc() ==
 	    this.estBlanc())
 	    {
 		valide = false;
+		return valide;
 	    }
 	return valide;
     }

@@ -23,25 +23,25 @@ public class Piece
     {
 	return this.est_blanc;
     }
-
     public boolean estNoir()
     {
 	return (!this.est_blanc);
     }
-
     public boolean estCapture()
     {
 	return this.est_capture;
     }
-
     public int getLigne()
     {
 	return this.ligne;
     }
-
     public int getColonne()
     {
 	return this.colonne;
+    }
+    public Echiquier getEchiquier()
+    {
+	return this.echiquier;
     }
     public void meSuisFaitCapture()
     {
@@ -68,6 +68,38 @@ public class Piece
     }
     public void deplace(int nouvelle_colonne, int nouvelle_ligne)
     {
-	
+	Piece piece = this.echiquier.prendsPiece(this.colonne, this.ligne);
+	if (echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne) != null)
+	    {
+		echiquier.capturePiece(nouvelle_colonne, nouvelle_ligne);
+	    }
+	echiquier.posePiece(piece, nouvelle_colonne, nouvelle_ligne);
+    }
+    // NOTE: À implémenter.
+    public String toString()
+    {
+	return "";
+    }
+    public String representationAscii()
+    {
+	if (this.estBlanc() == true)
+	    {
+		return "B";
+	    }
+	else
+	    {
+		return "N";
+	    }
+    }
+    public String representationUnicode()
+    {
+	if (this.estBlanc() == true)
+	    {
+		return "B";
+	    }
+	else
+	    {
+		return "N";
+	    }
     }
 }
