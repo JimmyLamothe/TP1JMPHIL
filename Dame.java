@@ -19,11 +19,11 @@ public class Dame extends Piece
     {
 	if (this.estBlanc() == true)
 	    {
-		return "U+2655";
+		return "\u2655";
 	    }
 	else
 	    {
-		return "U+265B";
+		return "\u265B";
 	    }
     }
     public boolean deplacementValide(int nouvelle_colonne, int nouvelle_ligne)
@@ -35,31 +35,49 @@ public class Dame extends Piece
 	Echiquier echiquier = getEchiquier();
         boolean valide = true;
 	String direction = "";
+	boolean pieceNouvelleCase = false;
+	// Infos pour debogage - eliminer dans jeu final.
+	System.out.println("colonne1:" + this.getColonne() + " ligne1:" + this.getLigne());
+	System.out.println("colonne2:" + nouvelle_colonne + " ligne2:" + nouvelle_ligne);
+	System.out.println("diffcolonne:" + diff_colonne + " diffligne:" + diff_ligne);
+	if (echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne) != null)
+	{
+	    pieceNouvelleCase = true;
+	}
 	// Vérifier que la pièce a bien été déplacée.
 	if (diff_colonne == 0 && diff_ligne == 0)
 	    {
+		System.out.println(1);
 		valide = false;
 	    }
 	// Vérifier que la pièce n'a pas déjà été capturée.
 	if (this.estCapture() == true)
 	    {
+		System.out.println(2);
 		valide = false;
 	    }
 	// Vérifier que la nouvelle case est une case valide de l'échiquier.
 	if (echiquier.caseValide(nouvelle_colonne, nouvelle_ligne) == false)
 	    {
+		System.out.println(3);
 		valide = false;
 	    }
 	// Vérifier qu'il n'y a pas une pièce de la même couleur sur la nouvelle case.
-	// NOTE: Vérifier ce qui arrive avec le retour NULL!
-	if (echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne).estBlanc() ==
-	    this.estBlanc())
+	// Vérifier qu'il n'y a pas une pièce de la même couleur sur la nouvelle case.
+	if (pieceNouvelleCase)
+	{
+	    if (echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne).estBlanc() ==
+		this.estBlanc())
 	    {
+		System.out.println(4);
 		valide = false;
+		return valide;
 	    }
+	}
 	// On limite les mouvements de plus d'une case.
 	if (Math.abs(diff_ligne) < 1 || Math.abs(diff_colonne) > 1)
 	    {
+		System.out.println(5);
 		valide = false;
 	    }
 	// On vérifie que le mouvement se fait sur une colonne, une ligne, ou une diagonale.
@@ -77,6 +95,7 @@ public class Dame extends Piece
 	    }
 	else
 	    {
+		System.out.println(6);
 		valide = false;
 		return valide;
 	    }
@@ -90,6 +109,7 @@ public class Dame extends Piece
 			    {
 				if(echiquier.examinePiece(colonne, i) != null)
 				    {
+					System.out.println(7);
 					valide = false;
 					return valide;
 				    }
@@ -101,6 +121,7 @@ public class Dame extends Piece
 			    {
 				if(echiquier.examinePiece(colonne, i) != null)
 				    {
+					System.out.println(8);
 					valide = false;
 					return valide;
 				    }
@@ -116,6 +137,7 @@ public class Dame extends Piece
 			    {
 				if(echiquier.examinePiece(ligne, i) != null)
 				    {
+					System.out.println(9);
 					valide = false;
 					return valide;
 				    }
@@ -127,6 +149,7 @@ public class Dame extends Piece
 			    {
 				if(echiquier.examinePiece(ligne, i) != null)
 				    {
+					System.out.println(10);
 					valide = false;
 					return valide;
 				    }
@@ -142,6 +165,7 @@ public class Dame extends Piece
 			    {
 				if(echiquier.examinePiece(colonne + i, ligne + i) != null)
 				    {
+					System.out.println(11);
 					valide = false;
 					return valide;
 				    }
@@ -153,6 +177,7 @@ public class Dame extends Piece
 			    {
 				if(echiquier.examinePiece(colonne + i, ligne - i) != null)
 				    {
+					System.out.println(12);
 					valide = false;
 					return valide;
 				    }
@@ -167,6 +192,7 @@ public class Dame extends Piece
 			    {
 				if(echiquier.examinePiece(colonne - i, ligne + i) != null)
 				    {
+					System.out.println(13);
 					valide = false;
 					return valide;
 				    }
@@ -178,6 +204,7 @@ public class Dame extends Piece
 			    {
 				if(echiquier.examinePiece(colonne -1, ligne - i) != null)
 				    {
+					System.out.println(14);
 					valide = false;
 					return valide;
 				    }

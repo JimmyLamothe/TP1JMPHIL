@@ -77,6 +77,8 @@ public class Piece
 		echiquier.capturePiece(nouvelle_colonne, nouvelle_ligne);
 	    }
 	echiquier.posePiece(piece, nouvelle_colonne, nouvelle_ligne);
+	this.colonne = nouvelle_colonne;
+	this.ligne = nouvelle_ligne;
     }
     // NOTE: À implémenter.
     public String toString()

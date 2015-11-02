@@ -19,11 +19,11 @@ public class Tour extends Piece
     {
 	if (this.estBlanc() == true)
 	    {
-		return "U+2656";
+		return "\u2656";
 	    }
 	else
 	    {
-		return "U+265C";
+		return "\u265C";
 	    }
     }
     public boolean deplacementValide(int nouvelle_colonne, int nouvelle_ligne)
@@ -39,16 +39,19 @@ public class Tour extends Piece
 	if (diff_colonne == 0 && diff_ligne == 0)
 	    {
 		valide = false;
+		return valide;
 	    }
 	// Vérifier que la pièce n'a pas déjà été capturée.
 	if (this.estCapture() == true)
 	    {
 		valide = false;
+		return valide;
 	    }
 	// Vérifier que la nouvelle case est une case valide de l'échiquier.
 	if (echiquier.caseValide(nouvelle_colonne, nouvelle_ligne) == false)
 	    {
 		valide = false;
+		return valide;
 	    }
 	// Vérifier qu'il n'y a pas une pièce de la même couleur sur la nouvelle case.
 	// NOTE: Vérifier ce qui arrive avec le retour NULL!
@@ -56,6 +59,7 @@ public class Tour extends Piece
 	    this.estBlanc())
 	    {
 		valide = false;
+		return valide;
 	    }
 	// On vérifie que le mouvement se fait soit sur une colonne ou une ligne.
 	if (diff_ligne != 0 && diff_colonne == 0)
@@ -69,6 +73,7 @@ public class Tour extends Piece
 	else
 	    {
 		valide = false;
+		return valide;
 	    }
 	// On vérifie qu'il n'y a pas de cases occupées avant la nouvelle case.
 	if(direction == "colonne")
@@ -80,6 +85,7 @@ public class Tour extends Piece
 				if(echiquier.examinePiece(colonne, i) != null)
 				    {
 					valide = false;
+					return valide;
 				    }
 			    }
 		    }
@@ -90,6 +96,7 @@ public class Tour extends Piece
 				if(echiquier.examinePiece(colonne, i) != null)
 				    {
 					valide = false;
+					return valide;
 				    }
 			    }
 		    }		
@@ -103,6 +110,7 @@ public class Tour extends Piece
 				if(echiquier.examinePiece(ligne, i) != null)
 				    {
 					valide = false;
+					return valide;
 				    }
 			    }
 		    }
@@ -113,6 +121,7 @@ public class Tour extends Piece
 				if(echiquier.examinePiece(ligne, i) != null)
 				    {
 					valide = false;
+					return valide;
 				    }
 			    }
 		    }		
