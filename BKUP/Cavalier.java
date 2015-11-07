@@ -6,7 +6,6 @@ public class Cavalier extends Piece
     }
     public String representationAscii()
     {
-    	 if(modeX == false){
 	if (this.estBlanc() == true)
 	    {
 		return "C";
@@ -14,13 +13,10 @@ public class Cavalier extends Piece
 	else
 	    {
 		return "c";
-	    }}else{
-	    	return "X";
 	    }
     }
     public String representationUnicode()
     {
-    	 if(modeX == false){
 	if (this.estBlanc() == true)
 	    {
 		return "\u2658";
@@ -28,8 +24,6 @@ public class Cavalier extends Piece
 	else
 	    {
 		return "\u265E";
-	    }}else{
-	    	return"X";
 	    }
     }
     public boolean deplacementValide(int nouvelle_colonne, int nouvelle_ligne)

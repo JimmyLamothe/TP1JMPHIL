@@ -6,6 +6,7 @@ public class Fou extends Piece
     }
     public String representationAscii()
     {
+    	 if(modeX == false){
 	if (this.estBlanc() == true)
 	    {
 		return "F";
@@ -13,10 +14,13 @@ public class Fou extends Piece
 	else
 	    {
 		return "f";
+	    }}else{
+	    	return "X";
 	    }
     }
     public String representationUnicode()
     {
+    	 if(modeX == false){
 	if (this.estBlanc() == true)
 	    {
 		return "\u2657";
@@ -24,6 +28,8 @@ public class Fou extends Piece
 	else
 	    {
 		return "\u265D";
+	    }}else{
+	    	return "X";
 	    }
     }
     public boolean deplacementValide(int nouvelle_colonne, int nouvelle_ligne)
@@ -88,9 +94,9 @@ public class Fou extends Piece
 	    {
 		if (diff_ligne > 0)
 		    {
-			for (int i = 1; i < diff_ligne; i++)
+			for (int i = 1; i < diff_ligne + 1; i++)
 			    {
-				if(echiquier.examinePiece(colonne + i, ligne + i) != null)
+				if(echiquier.examinePiece(colonne + i, ligne + i) != null && echiquier.examinePiece(colonne +i, ligne + i).representationUnicode() != "x")
 				    {
 					System.out.println(6);
 					valide = false;
@@ -100,9 +106,9 @@ public class Fou extends Piece
 		    }
 		else
 		    {
-			for (int i = 1; i < Math.abs(diff_ligne); i++)
+			for (int i = 1; i < Math.abs(diff_ligne) + 1; i++)
 			    {
-				if(echiquier.examinePiece(colonne + i, ligne - i) != null)
+				if(echiquier.examinePiece(colonne + i, ligne - i) != null && echiquier.examinePiece(colonne +i,ligne - i).representationUnicode() != "x")
 				    {
 					System.out.println(7);
 					valide = false;
@@ -117,7 +123,7 @@ public class Fou extends Piece
 		    {
 			for (int i = 1; i < diff_ligne; i++)
 			    {
-				if(echiquier.examinePiece(colonne - i, ligne + i) != null)
+				if(echiquier.examinePiece(colonne - i, ligne + i) != null && echiquier.examinePiece(colonne - i,ligne + i).representationUnicode() != "x")
 				    {
 					System.out.println(8);
 					valide = false;
@@ -129,7 +135,7 @@ public class Fou extends Piece
 		    {
 			for (int i = 1; i < Math.abs(diff_ligne); i++)
 			    {
-				if(echiquier.examinePiece(colonne -1, ligne - i) != null)
+				if(echiquier.examinePiece(colonne -i, ligne - i) != null && echiquier.examinePiece(colonne -i,ligne - i).representationUnicode() != "x")
 				    {
 					System.out.println(9);
 					valide = false;

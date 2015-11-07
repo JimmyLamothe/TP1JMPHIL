@@ -1,35 +1,29 @@
-public class Tour extends Piece
+public class Dame extends Piece
 {
-    public Tour(boolean est_blanc, int colonne, int ligne, Echiquier echiquier)
+    public Dame(boolean est_blanc, int colonne, int ligne, Echiquier echiquier)
     {
 	super(est_blanc, colonne, ligne, echiquier);
     }
     public String representationAscii()
     {
-    	 if(modeX == false){
 	if (this.estBlanc() == true)
 	    {
-		return "T";
+		return "D";
 	    }
 	else
 	    {
-		return "t";
-	    }}else{
-	    	return "X";
+		return "d";
 	    }
     }
     public String representationUnicode()
     {
-    	 if(modeX == false){
 	if (this.estBlanc() == true)
 	    {
-		return "\u2656";
+		return "\u2655";
 	    }
 	else
 	    {
-		return "\u265C";
-	    }}else{
-	    	return "X";
+		return "\u265B";
 	    }
     }
     public boolean deplacementValide(int nouvelle_colonne, int nouvelle_ligne)
@@ -46,7 +40,7 @@ public class Tour extends Piece
 	System.out.println("colonne1:" + this.getColonne() + " ligne1:" + this.getLigne());
 	System.out.println("colonne2:" + nouvelle_colonne + " ligne2:" + nouvelle_ligne);
 	System.out.println("diffcolonne:" + diff_colonne + " diffligne:" + diff_ligne);
-	if (echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne) != null && echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne).representationUnicode() != "x")
+	if (echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne) != null)
 	{
 	    pieceNouvelleCase = true;
 	}
@@ -55,21 +49,18 @@ public class Tour extends Piece
 	    {
 		System.out.println(1);
 		valide = false;
-		return valide;
 	    }
 	// Vérifier que la pièce n'a pas déjà été capturée.
 	if (this.estCapture() == true)
 	    {
 		System.out.println(2);
 		valide = false;
-		return valide;
 	    }
 	// Vérifier que la nouvelle case est une case valide de l'échiquier.
 	if (echiquier.caseValide(nouvelle_colonne, nouvelle_ligne) == false)
 	    {
 		System.out.println(3);
 		valide = false;
-		return valide;
 	    }
 	// Vérifier qu'il n'y a pas une pièce de la même couleur sur la nouvelle case.
 	if (pieceNouvelleCase)
@@ -82,7 +73,7 @@ public class Tour extends Piece
 		return valide;
 	    }
 	}
-	// On vérifie que le mouvement se fait soit sur une colonne ou une ligne.
+	// On vérifie que le mouvement se fait sur une colonne, une ligne, ou une diagonale.
 	if (diff_ligne != 0 && diff_colonne == 0)
 	    {
 		direction = "colonne";
@@ -91,22 +82,27 @@ public class Tour extends Piece
 	    {
 		direction = "ligne";
 	    }
+	else if (Math.abs(diff_ligne) == Math.abs(diff_colonne))
+	    {
+		direction = "diagonale";
+	    }
 	else
 	    {
-		System.out.println(5);
+		System.out.println(6);
 		valide = false;
 		return valide;
 	    }
 	// On vérifie qu'il n'y a pas de cases occupées avant la nouvelle case.
+	// Test de mouvement sur une colonne.
 	if(direction == "colonne")
 	    {
 		if (diff_ligne > 0)
 		    {
-			for (int i = nouvelle_ligne -1; i > ligne; i--)
+			for (int i = nouvelle_ligne - 1; i > ligne; i--)
 			    {
-				if(echiquier.examinePiece(colonne, i) != null && echiquier.examinePiece(colonne, i).representationUnicode() != "x")
+				if(echiquier.examinePiece(colonne, i) != null)
 				    {
-					System.out.println(6);
+					System.out.println(7);
 					valide = false;
 					return valide;
 				    }
@@ -114,11 +110,67 @@ public class Tour extends Piece
 		    }
 		else
 		    {
-			for (int i = nouvelle_ligne +1; i < ligne; i++)
+			for (int i = nouvelle_ligne + 1; i < ligne; i++)
 			    {
-				if(echiquier.examinePiece(colonne, i) != null && echiquier.examinePiece(colonne, i).representationUnicode() != "x")
+				if(echiquier.examinePiece(colonne, i) != null)
 				    {
-					System.out.println(7);
+					System.out.println(8);
+					valide = false;
+					return valide;
+				    }
+			    }
+		    }		
+	    }
+	// Test de mouvement sur une ligne.
+	else if(direction == "ligne")
+	    {
+		if (diff_colonne > 0)
+		    {
+			for (int i = nouvelle_colonne - 1; i > colonne; i--)
+			    {
+				if(echiquier.examinePiece(i, ligne) != null)
+				    {
+					System.out.println(9);
+					valide = false;
+					return valide;
+				    }
+			    }
+		    }
+		else
+		    {
+			for (int i = nouvelle_colonne + 1; i < colonne; i++)
+			    {
+				if(echiquier.examinePiece(i, ligne) != null)
+				    {
+					System.out.println(10);
+					valide = false;
+					return valide;
+				    }
+			    }
+		    }		
+	    }
+	// Test de mouvement sur une diagonale.
+	else if(diff_colonne > 0)
+	    {
+		if (diff_ligne > 0)
+		    {
+			for (int i = 1; i < diff_ligne + 1; i++)
+			    {
+				if(echiquier.examinePiece(colonne + i, ligne + i) != null)
+				    {
+					System.out.println(11);
+					valide = false;
+					return valide;
+				    }
+			    }
+		    }
+		else
+		    {
+			for (int i = 1; i < Math.abs(diff_ligne) +1; i++)
+			    {
+				if(echiquier.examinePiece(colonne + i, ligne - i) != null)
+				    {
+					System.out.println(12);
 					valide = false;
 					return valide;
 				    }
@@ -127,13 +179,13 @@ public class Tour extends Piece
 	    }
 	else 
 	    {
-		if (diff_colonne > 0)
+		if (diff_ligne > 0)
 		    {
-			for (int i = nouvelle_colonne -1; i > colonne; i--)
+			for (int i = 1; i < diff_ligne; i++)
 			    {
-				if(echiquier.examinePiece(i, ligne) != null && echiquier.examinePiece(i, ligne).representationUnicode() != "x")
+				if(echiquier.examinePiece(colonne - i, ligne + i) != null)
 				    {
-					System.out.println(8);
+					System.out.println(13);
 					valide = false;
 					return valide;
 				    }
@@ -141,17 +193,17 @@ public class Tour extends Piece
 		    }
 		else
 		    {
-			for (int i = nouvelle_colonne +1; i < colonne; i++)
+			for (int i = 1; i < Math.abs(diff_ligne); i++)
 			    {
-				if(echiquier.examinePiece(i, ligne) != null && echiquier.examinePiece(i, ligne).representationUnicode() != "x")
+				if(echiquier.examinePiece(colonne -i, ligne - i) != null)
 				    {
-					System.out.println(9);
+					System.out.println(14);
 					valide = false;
 					return valide;
 				    }
 			    }
 		    }		
-	    }
+	    }	
 	return valide;
     }
 }

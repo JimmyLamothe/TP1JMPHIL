@@ -127,7 +127,7 @@ public class Pion extends Piece
 	{
 	    if(diff_ligne < 0)
 	    {
-		if(echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne + 1) != null)
+		if(echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne - 1) != null)
 		{
 		    System.out.println(11);
 		    valide = false;
@@ -135,9 +135,9 @@ public class Pion extends Piece
 	    }
 	    if(diff_ligne > 0)
 	    {
-		if(echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne - 1) != null)
+		if(echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne + 1) != null)
 		{
-		    System.out.println(12);
+		    System.out.println(11);
 		    valide = false;
 		}
 	    }

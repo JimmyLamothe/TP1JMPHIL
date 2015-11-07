@@ -28,14 +28,16 @@ public class JeuEchec
 	}
 	return true;
     }
+    public static boolean unicode = true;
     public static void main(String[] args)
     {
 	boolean finpartie = false;
 	boolean tourblanc = true;
 	boolean tournoir = false;
+	boolean deplacement = false;
 	Scanner scan = new Scanner(System.in);	
 	//décision sur type affichage
-	boolean unicode = true;
+	
 	try
 	{
 	    if(args[0].equals("ascii"))
@@ -71,6 +73,7 @@ public class JeuEchec
 	    {	
 		System.out.println("Joueur blanc?");
 		String moveblanc = scan.nextLine();
+		
 		try
 		{
 		    boolean valide = true;
@@ -103,6 +106,16 @@ public class JeuEchec
 			    colonne1 =7;
 			    break;
 			}
+		    //converti les lignes en chiffre
+		    int ligne1, ligne2;
+		    ligne1 = Integer.parseInt(moveblanc.substring(1,2))-1;
+		    //affiche les déplacement possible
+		    if(echiquier.caseValide(colonne1,ligne1) && moveblanc.length() < 3)
+		    {
+		    	echiquier.afficheDeplacement(colonne1,ligne1);
+		     deplacement = true;
+		    }
+		    
 		    // converti la colonne2 en chiffre
 		    int colonne2 = 10;
 		    switch(moveblanc.substring(3,4))
@@ -132,11 +145,8 @@ public class JeuEchec
 			    colonne2 =7;
 			    break;
 			}
-		    //converti les lignes en chiffre
-		    int ligne1, ligne2;
-		    ligne1 = Integer.parseInt(moveblanc.substring(1,2))-1;
+		   //convertie la 2e colonne
 		    ligne2 = Integer.parseInt(moveblanc.substring(4,5))-1;
-		    
 		    //test si le mouvement est valide
 		    if(echiquier.caseValide(colonne1,ligne1)&& echiquier.caseValide(colonne2,ligne2))
 		    {
@@ -145,36 +155,54 @@ public class JeuEchec
 			{
 			    tourblanc = false;
 			    tournoir = true;
+			    //echiquier.afficheDeplacement(colonne1,ligne1);
 			}
 			else
 			{
 			    valide = false;
 			    System.out.println("Ce n'est pas un déplacement valide.");
 			}
+			
 		    }
 		    else
 		    {
 			valide = false;
 			System.out.println("Ce n'est pas un déplacement valide.");
 		    }
-		    if (echiquier.examinePiece(colonne2, ligne2) != null)
+		    if (echiquier.examinePiece(colonne2, ligne2) != null && valide)
 		    {
 			echiquier.capturePiece(colonne2, ligne2);
 		    }		    
 		    if(valide)
 		    {
-			(echiquier.prendsPiece(colonne1, ligne1)).deplace(colonne2, ligne2);
+			(echiquier.examinePiece(colonne1, ligne1)).deplace(colonne2, ligne2);
+		    }
+		    if(aDeplacer instance of Pion && aDeplacer.estBlanc() && ligne2 == 7)
+		    {
+			System.out.prinln("Promotion Blanc");
+		    }
+		    if(aDeplacer instance of Pion && aDeplacer.estNoir() && ligne2 == 0)
+		    {
+			System.out.prinln("Promotion Noir");
 		    }
 		}
 		catch(NumberFormatException e1)
 		{
 		    System.out.println("Ce n'est pas un déplacement valide.");
+		    
 		    //e1.printStackTrace();
 		}
 		catch(StringIndexOutOfBoundsException e2)
 		{
+			if(deplacement == false){
 		    System.out.println("Ce n'est pas un déplacement valide.");
+			}
+			deplacement = false;
 		    //e2.printStackTrace();
+		}
+		catch(NullPointerException e3)
+		{
+		   System.out.println("Ce n'est pas un déplacement valide.");	
 		}
 	    }
 	    if(unicode == true)
@@ -224,6 +252,15 @@ public class JeuEchec
 			    colonne1 =7;
 			    break;
 			}
+		    //converti les lignes en chiffre
+		    int ligne1, ligne2;
+		    ligne1 = Integer.parseInt(movenoir.substring(1,2))-1;
+		    //affiche les déplacement possible
+		    if(echiquier.caseValide(colonne1,ligne1) && movenoir.length() < 3)
+		    {
+		    	echiquier.afficheDeplacement(colonne1,ligne1);
+			deplacement = true;
+		    }
 		    // converti la colonne2 en chiffre
 		    int colonne2 = 10;
 		    switch(movenoir.substring(3,4))
@@ -254,8 +291,6 @@ public class JeuEchec
 			    break;
 			}
 		    //converti les lignes en chiffre
-		    int ligne1, ligne2;
-		    ligne1 = Integer.parseInt(movenoir.substring(1,2))-1;
 		    ligne2 = Integer.parseInt(movenoir.substring(4,5))-1;
 		    
 		    //test si le mouvement est valide
@@ -278,13 +313,13 @@ public class JeuEchec
 			valide = false;
 			System.out.println("Ce n'est pas un déplacement valide.");
 		    }
-		    if (echiquier.examinePiece(colonne2, ligne2) != null)
+		    if (echiquier.examinePiece(colonne2, ligne2) != null && valide)
 		    {
 			echiquier.capturePiece(colonne2, ligne2);
 		    }
 		    if(valide)
 		    {
-			(echiquier.prendsPiece(colonne1, ligne1)).deplace(colonne2, ligne2);
+			(echiquier.examinePiece(colonne1, ligne1)).deplace(colonne2, ligne2);
 		    }		   
 		}
 		catch(NumberFormatException e1)
@@ -294,8 +329,15 @@ public class JeuEchec
 		}
 		catch(StringIndexOutOfBoundsException e2)
 		{
-		    System.out.println("Ce n'est pas un déplacement valide.");
+			if(deplacement == false){
+			    System.out.println("Ce n'est pas un déplacement valide.");
+				}
+				deplacement = false;
 		    //e2.printStackTrace();
+		}
+		catch(NullPointerException e3)
+		{
+		   System.out.println("Ce n'est pas un déplacement valide.");	
 		}
 	    }
 	    if(unicode == true)

@@ -6,7 +6,6 @@ public class Roi extends Piece
     }
     public String representationAscii()
     {
-    	 if(modeX == false){
 	if (this.estBlanc() == true)
 	    {
 		return "R";
@@ -14,13 +13,10 @@ public class Roi extends Piece
 	else
 	    {
 		return "r";
-	    }}else{
-	    	return"X";
 	    }
     }
     public String representationUnicode()
     {
-    	 if(modeX == false){
 	if (this.estBlanc() == true)
 	    {
 		return "\u2654";
@@ -28,8 +24,6 @@ public class Roi extends Piece
 	else
 	    {
 		return "\u265A";
-	    }}else{
-	    	return "X";
 	    }
     }
     public boolean deplacementValide(int nouvelle_colonne, int nouvelle_ligne)
@@ -69,7 +63,6 @@ public class Roi extends Piece
 		return valide;
 	    }
 	// Vérifier qu'il n'y a pas une pièce de la même couleur sur la nouvelle case.
-	// Vérifier qu'il n'y a pas une pièce de la même couleur sur la nouvelle case.
 	if (pieceNouvelleCase)
 	{
 	    if (echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne).estBlanc() ==
@@ -98,10 +91,7 @@ public class Roi extends Piece
 		   tour_dame instanceof Tour && !tour_dame.aBouge())
 		    {
 			System.out.println("Roque dame permis");
-			if(!chessboard.checkingMovelist())
-			{
-			    tour_dame.deplace(3,0);
-			}
+			tour_dame.deplace(3,0);
 			valide = true;
 			return valide;
 		    }
@@ -112,10 +102,7 @@ public class Roi extends Piece
 		if(cavalier_roi == null && fou_roi == null && !tour_roi.aBouge())
 		    {
 			System.out.println("Roque roi permis");
-			if(!chessboard.checkingMovelist())
-			{
-			    tour_roi.deplace(5,0);
-			}
+			tour_roi.deplace(5,0);
 			valide = true;
 			return valide;
 		    }
@@ -139,10 +126,7 @@ public class Roi extends Piece
 		   tour_dame instanceof Tour && !tour_dame.aBouge())
 		    {
 			System.out.println("Roque dame permis");
-			if(!chessboard.checkingMovelist())
-			{
-			    tour_dame.deplace(3,7);
-			}
+			tour_dame.deplace(3,7);
 			valide = true;
 			return valide;
 		    }
@@ -153,15 +137,12 @@ public class Roi extends Piece
 		if(cavalier_roi == null && fou_roi == null && !tour_roi.aBouge())
 		    {
 			System.out.println("Roque roi permis");
-			if(!chessboard.checkingMovelist())
-			{
-			    tour_roi.deplace(5,7);
-			}
+			tour_roi.deplace(5,7);
 			valide = true;
 			return valide;
 		    }
 	    }
-	}	
+	}
 	// On limite les mouvements de plus d'une case.
 	if (Math.abs(diff_ligne) > 1 || Math.abs(diff_colonne) > 1)
 	    {

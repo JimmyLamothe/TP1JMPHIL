@@ -113,35 +113,6 @@ public class Pion extends Piece
 			valide = false;
 		    }
 	    }
-	// On interdit les captures par en avant.
-	if (diff_colonne == 0)
-	{
-	    if(echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne) != null)
-	    {
-		System.out.println(10);
-		valide = false;
-	    }
-	}
-	// On vérifie que le mouvement de deux cases ne traverse pas de pièce.
-	if (diff_colonne == 0 && Math.abs(diff_ligne) == 2)
-	{
-	    if(diff_ligne < 0)
-	    {
-		if(echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne + 1) != null)
-		{
-		    System.out.println(11);
-		    valide = false;
-		}
-	    }
-	    if(diff_ligne > 0)
-	    {
-		if(echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne - 1) != null)
-		{
-		    System.out.println(12);
-		    valide = false;
-		}
-	    }
-	}
 	return valide;
     }
 }

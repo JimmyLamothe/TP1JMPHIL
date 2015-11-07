@@ -8,7 +8,10 @@ public class Piece
 	this.echiquier = echiquier;
 	this.est_capture = false;
     }
-    
+    public boolean modeX = false;
+
+    private boolean a_bouge = false;
+
     private boolean est_blanc;
 
     private boolean est_capture;
@@ -18,7 +21,11 @@ public class Piece
     private int ligne;
 
     private Echiquier echiquier;
-    
+
+    public boolean aBouge()
+    {
+	return this.a_bouge;
+    }
     public boolean estBlanc()
     {
 	return this.est_blanc;
@@ -87,6 +94,7 @@ public class Piece
     }
     public String representationAscii()
     {
+
 	if (this.estBlanc() == true)
 	    {
 		return "B";
@@ -106,5 +114,6 @@ public class Piece
 	    {
 		return "N";
 	    }
+
     }
 }

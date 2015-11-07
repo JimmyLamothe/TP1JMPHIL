@@ -46,7 +46,7 @@ public class Tour extends Piece
 	System.out.println("colonne1:" + this.getColonne() + " ligne1:" + this.getLigne());
 	System.out.println("colonne2:" + nouvelle_colonne + " ligne2:" + nouvelle_ligne);
 	System.out.println("diffcolonne:" + diff_colonne + " diffligne:" + diff_ligne);
-	if (echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne) != null && echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne).representationUnicode() != "x")
+	if (echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne) != null)
 	{
 	    pieceNouvelleCase = true;
 	}
@@ -104,7 +104,7 @@ public class Tour extends Piece
 		    {
 			for (int i = nouvelle_ligne -1; i > ligne; i--)
 			    {
-				if(echiquier.examinePiece(colonne, i) != null && echiquier.examinePiece(colonne, i).representationUnicode() != "x")
+				if(echiquier.examinePiece(colonne, i) != null)
 				    {
 					System.out.println(6);
 					valide = false;
@@ -116,7 +116,7 @@ public class Tour extends Piece
 		    {
 			for (int i = nouvelle_ligne +1; i < ligne; i++)
 			    {
-				if(echiquier.examinePiece(colonne, i) != null && echiquier.examinePiece(colonne, i).representationUnicode() != "x")
+				if(echiquier.examinePiece(colonne, i) != null)
 				    {
 					System.out.println(7);
 					valide = false;
@@ -131,7 +131,7 @@ public class Tour extends Piece
 		    {
 			for (int i = nouvelle_colonne -1; i > colonne; i--)
 			    {
-				if(echiquier.examinePiece(i, ligne) != null && echiquier.examinePiece(i, ligne).representationUnicode() != "x")
+				if(echiquier.examinePiece(i, ligne) != null)
 				    {
 					System.out.println(8);
 					valide = false;
@@ -143,7 +143,7 @@ public class Tour extends Piece
 		    {
 			for (int i = nouvelle_colonne +1; i < colonne; i++)
 			    {
-				if(echiquier.examinePiece(i, ligne) != null && echiquier.examinePiece(i, ligne).representationUnicode() != "x")
+				if(echiquier.examinePiece(i, ligne) != null)
 				    {
 					System.out.println(9);
 					valide = false;

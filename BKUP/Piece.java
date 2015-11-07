@@ -9,6 +9,9 @@ public class Piece
 	this.est_capture = false;
     }
     public boolean modeX = false;
+
+    private boolean a_bouge = false;
+
     private boolean est_blanc;
 
     private boolean est_capture;
@@ -18,6 +21,11 @@ public class Piece
     private int ligne;
 
     private Echiquier echiquier;
+    
+    public boolean aBouge()
+    {
+	return this.a_bouge;
+    }
     
     public boolean estBlanc()
     {
@@ -79,6 +87,7 @@ public class Piece
 	echiquier.posePiece(piece, nouvelle_colonne, nouvelle_ligne);
 	this.colonne = nouvelle_colonne;
 	this.ligne = nouvelle_ligne;
+	this.a_bouge = true;
     }
     // NOTE: À implémenter.
     public String toString()

@@ -6,6 +6,7 @@ public class Dame extends Piece
     }
     public String representationAscii()
     {
+    	 if(modeX == false){
 	if (this.estBlanc() == true)
 	    {
 		return "D";
@@ -13,10 +14,13 @@ public class Dame extends Piece
 	else
 	    {
 		return "d";
+	    }}else{
+	    	return "X";
 	    }
     }
     public String representationUnicode()
     {
+    	 if(modeX == false){
 	if (this.estBlanc() == true)
 	    {
 		return "\u2655";
@@ -24,6 +28,8 @@ public class Dame extends Piece
 	else
 	    {
 		return "\u265B";
+	    }}else{
+	    	return "X";
 	    }
     }
     public boolean deplacementValide(int nouvelle_colonne, int nouvelle_ligne)
@@ -63,7 +69,6 @@ public class Dame extends Piece
 		valide = false;
 	    }
 	// Vérifier qu'il n'y a pas une pièce de la même couleur sur la nouvelle case.
-	// Vérifier qu'il n'y a pas une pièce de la même couleur sur la nouvelle case.
 	if (pieceNouvelleCase)
 	{
 	    if (echiquier.examinePiece(nouvelle_colonne, nouvelle_ligne).estBlanc() ==
@@ -74,12 +79,6 @@ public class Dame extends Piece
 		return valide;
 	    }
 	}
-	// On limite les mouvements de plus d'une case.
-	if (Math.abs(diff_ligne) < 1 || Math.abs(diff_colonne) > 1)
-	    {
-		System.out.println(5);
-		valide = false;
-	    }
 	// On vérifie que le mouvement se fait sur une colonne, une ligne, ou une diagonale.
 	if (diff_ligne != 0 && diff_colonne == 0)
 	    {
@@ -105,9 +104,9 @@ public class Dame extends Piece
 	    {
 		if (diff_ligne > 0)
 		    {
-			for (int i = nouvelle_ligne; i > ligne; i--)
+			for (int i = nouvelle_ligne - 1; i > ligne; i--)
 			    {
-				if(echiquier.examinePiece(colonne, i) != null)
+				if(echiquier.examinePiece(colonne, i) != null && echiquier.examinePiece(colonne, i).representationUnicode() != "x")
 				    {
 					System.out.println(7);
 					valide = false;
@@ -117,9 +116,9 @@ public class Dame extends Piece
 		    }
 		else
 		    {
-			for (int i = nouvelle_ligne; i < ligne; i++)
+			for (int i = nouvelle_ligne + 1; i < ligne; i++)
 			    {
-				if(echiquier.examinePiece(colonne, i) != null)
+				if(echiquier.examinePiece(colonne, i) != null && echiquier.examinePiece(colonne, i).representationUnicode() != "x")
 				    {
 					System.out.println(8);
 					valide = false;
@@ -133,9 +132,9 @@ public class Dame extends Piece
 	    {
 		if (diff_colonne > 0)
 		    {
-			for (int i = nouvelle_colonne; i > colonne; i--)
+			for (int i = nouvelle_colonne - 1; i > colonne; i--)
 			    {
-				if(echiquier.examinePiece(ligne, i) != null)
+				if(echiquier.examinePiece(i, ligne) != null && echiquier.examinePiece(i, ligne).representationUnicode() != "x")
 				    {
 					System.out.println(9);
 					valide = false;
@@ -145,9 +144,9 @@ public class Dame extends Piece
 		    }
 		else
 		    {
-			for (int i = nouvelle_colonne; i < colonne; i++)
+			for (int i = nouvelle_colonne + 1; i < colonne; i++)
 			    {
-				if(echiquier.examinePiece(ligne, i) != null)
+				if(echiquier.examinePiece(i, ligne) != null && echiquier.examinePiece(i, ligne).representationUnicode() != "x")
 				    {
 					System.out.println(10);
 					valide = false;
@@ -161,9 +160,9 @@ public class Dame extends Piece
 	    {
 		if (diff_ligne > 0)
 		    {
-			for (int i = 1; i < diff_ligne; i++)
+			for (int i = 1; i < diff_ligne + 1; i++)
 			    {
-				if(echiquier.examinePiece(colonne + i, ligne + i) != null)
+				if(echiquier.examinePiece(colonne + i, ligne + i) != null && echiquier.examinePiece(colonne + i,ligne + i).representationUnicode() != "x")
 				    {
 					System.out.println(11);
 					valide = false;
@@ -173,9 +172,9 @@ public class Dame extends Piece
 		    }
 		else
 		    {
-			for (int i = 1; i < Math.abs(diff_ligne); i++)
+			for (int i = 1; i < Math.abs(diff_ligne) +1; i++)
 			    {
-				if(echiquier.examinePiece(colonne + i, ligne - i) != null)
+				if(echiquier.examinePiece(colonne + i, ligne - i) != null && echiquier.examinePiece(colonne + i,ligne - i).representationUnicode() != "x")
 				    {
 					System.out.println(12);
 					valide = false;
@@ -190,7 +189,7 @@ public class Dame extends Piece
 		    {
 			for (int i = 1; i < diff_ligne; i++)
 			    {
-				if(echiquier.examinePiece(colonne - i, ligne + i) != null)
+				if(echiquier.examinePiece(colonne - i, ligne + i) != null && echiquier.examinePiece(colonne - i,ligne + i).representationUnicode() != "x")
 				    {
 					System.out.println(13);
 					valide = false;
@@ -202,7 +201,7 @@ public class Dame extends Piece
 		    {
 			for (int i = 1; i < Math.abs(diff_ligne); i++)
 			    {
-				if(echiquier.examinePiece(colonne -1, ligne - i) != null)
+				if(echiquier.examinePiece(colonne -i, ligne - i) != null && echiquier.examinePiece(colonne-i,ligne - i).representationUnicode() != "x")
 				    {
 					System.out.println(14);
 					valide = false;
